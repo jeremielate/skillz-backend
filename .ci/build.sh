@@ -2,11 +2,6 @@
 
 set -e -x
 
-export GOPATH=$PWD/go
-
-mkdir -p $GOPATH/src/go.qrs.fr
-cp -r $1 $GOPATH/src/go.qrs.fr/$1
-
 go test -v go.qrs.fr/$1
 
 out_dir=$2
