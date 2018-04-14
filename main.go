@@ -46,6 +46,7 @@ func main() {
 	}()
 
 	log.Printf("listening to %s\n", addr)
+	OpenUrl(addr)
 	if err := srv.ListenAndServe(); err != nil {
 		close(sig)
 		if err != http.ErrServerClosed {
