@@ -7,8 +7,8 @@ go_import_path: go.qrs.fr/skillz-backend
 script: .ci/build.sh skillz-backend out_exe_dir
 
 deploy:
-        - skip_cleanup: true
         - provider: script
           script: .ci/deploy.sh out_exe_dir $TRAVIS_COMMIT
+          skip_cleanup: true
           on:
                   branch: master
