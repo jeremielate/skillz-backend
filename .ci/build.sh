@@ -2,6 +2,11 @@
 
 set -e -x
 
+go get -u github.com/go-bindata/go-bindata/...
+cd $GOPATH/src/go.qrs.fr/$1
+go-bindata ./static
+cd -
+
 go test -v go.qrs.fr/$1
 
 out_dir=$2
