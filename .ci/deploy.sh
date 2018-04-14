@@ -7,6 +7,6 @@ commit=$2
 
 DATE=`date +%Y-%m-%d`
 
-for exe in ${dir}; do
+for exe in `find ${dir} -type f`; do
 	curl --ftp-create-dirs -T ${dir}/${exe} ftp://skillz:YoloTest1234@skillz.events/${DATE}-${commit}/${exe}
 done
