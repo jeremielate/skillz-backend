@@ -11,7 +11,7 @@ import (
 )
 
 func makeRequest(d PostData) *http.Request {
-	method := strings.ToLower(d.Method)
+	method := strings.ToUpper(d.Method)
 	switch method {
 	case http.MethodGet, http.MethodPost:
 		log.Println("making a request...")
