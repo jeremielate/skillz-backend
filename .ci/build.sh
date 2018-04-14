@@ -9,7 +9,7 @@ cp -r $1 $GOPATH/src/go.qrs.fr/$1
 
 go test -v go.qrs.fr/$1
 
-out_dir=$PWD/out_dir
+out_dir=$2
 mkdir -p $out_dir
 
 for arch in amd64 386; do
