@@ -3,11 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/alecthomas/template"
 )
 
 func makeRequest(d PostData) *http.Request {
@@ -65,7 +66,20 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 	} else if r.Method == http.MethodGet {
-
+		index, _ := Asset("index.html")
+		t, err := template.New("index").Parse(string(index))
+		if err != nil {
+			log.Println(err)
+			http.Error(w, "internal server error.", http.StatusInternalServerError)
+			return
+		}
+		tmplData := struct {
+			Url string
+		}{
+			address(),
+		}
+		if err := t.Execute(w, tmplData); err != nil {
+			log.Println(err)
+		}
 	}
-	fmt.Fprintln(w, "ok.")
 }

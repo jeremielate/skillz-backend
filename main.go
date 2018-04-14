@@ -20,6 +20,10 @@ func init() {
 	flag.IntVar(&Port, "port", Port, "port to listen")
 }
 
+func address() string {
+	return fmt.Sprintf("%s:%d", Host, Port)
+}
+
 func main() {
 	flag.Parse()
 	if Port < 1 || Host == "" {
@@ -30,7 +34,7 @@ func main() {
 
 	handle := http.ServeMux{}
 	handle.HandleFunc("/", mainPage)
-	addr := fmt.Sprintf("%s:%d", Host, Port)
+	addr := address()
 	srv := http.Server{
 		Handler: &handle,
 		Addr:    addr,
