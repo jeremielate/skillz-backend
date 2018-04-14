@@ -30,9 +30,10 @@ func makeRequest(d PostData) *http.Request {
 }
 
 type PostData struct {
-	Url, Method string
-	Headers     map[string]string
-	Data        string
+	Url     string            `json:"url"`
+	Method  string            `json:"method"`
+	Headers map[string]string `json:"headers"`
+	Data    string            `json:"data"`
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
