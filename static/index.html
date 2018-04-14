@@ -1,2 +1,31 @@
+<!DOCTYPE html>
 <html>
+<head>
+	<title>Diggin Skillz - Local testing server</title>
+</head>
+<body>
+	<input type="text" placeholder="http://localhost:8000/" id="url" /><br />
+	<input type="text" placeholder="GET" id="method" /><br />
+	<textarea placeholder='{"Content-Type": "aplication/json"}' id="headers"></textarea><br />
+	<textarea placeholder='{"message": "Hello"}' id="data"></textarea><br />
+	<div id="response"></div>
+	<script type="text/javascript">
+		var xhr = new XMLHttpRequest();
+		var url = {{ URL }};
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				document.getElementById("response").innerHTML = xhr.responseText;
+			}
+		};
+		var data = JSON.stringify({
+			url: document.getElementById("url").value,
+			method: document.getElementById("method").value,
+			headers: document.getElementById("headers").value,
+			data: document.getElementById("data").value
+		});
+		xhr.send(data);
+	</script>
+</body>
 </html>
