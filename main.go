@@ -2,22 +2,39 @@ package main
 
 import (
 	"context"
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 )
 
-func mainPage(w http.ResponseWriter, r *http.Request) {
+var (
+	Host string = "localhost"
+	Port int    = 8080
+)
+
+func init() {
+	flag.StringVar(&Host, "host", Host, "host to listen")
+	flag.IntVar(&Port, "port", Port, "port to listen")
 }
 
 func main() {
+	flag.Parse()
+	if Port < 1 || Host == "" {
+		return
+	}
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt)
 
 	handle := http.ServeMux{}
 	handle.HandleFunc("/", mainPage)
-	srv := http.Server{Handler: &handle}
+	addr := fmt.Sprintf("%s:%d", Host, Port)
+	srv := http.Server{
+		Handler: &handle,
+		Addr:    addr,
+	}
 
 	go func() {
 		for c := range sig {
@@ -28,6 +45,7 @@ func main() {
 		}
 	}()
 
+	log.Printf("listening to %s\n", addr)
 	if err := srv.ListenAndServe(); err != nil {
 		close(sig)
 		if err != http.ErrServerClosed {
