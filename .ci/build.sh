@@ -14,10 +14,10 @@ mkdir -p $out_dir
 
 for arch in amd64 386; do
 	for os in linux darwin; do
-		GOOS=$os GOARCH=$arch go build -s -w -o ${out_dir}/${1}_${os}_${arch} go.qrs.fr/$1
+		GOOS=$os GOARCH=$arch go build -ldflags="-s" -o ${out_dir}/${1}_${os}_${arch} go.qrs.fr/$1
 	done
 done
 
 for arch in amd64 386; do
-	GOOS=windows GOARCH=$arch go build -s -w -o ${out_dir}/${1}_windows_${arch}.exe go.qrs.fr/$1
+	GOOS=windows GOARCH=$arch go build -ldflags="-s" -o ${out_dir}/${1}_windows_${arch}.exe go.qrs.fr/$1
 done
