@@ -3,12 +3,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"strings"
-
-	"github.com/alecthomas/template"
 )
 
 func makeRequest(d PostData) *http.Request {
