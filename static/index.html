@@ -8,8 +8,10 @@
 	<input type="text" placeholder="GET" id="method" /><br />
 	<textarea placeholder='{"Content-Type": "aplication/json"}' id="headers"></textarea><br />
 	<textarea placeholder='{"message": "Hello"}' id="data"></textarea><br />
+	<button onclick="send()">Envoyer</button>
 	<div id="response"></div>
 	<script type="text/javascript">
+	function send() {
 		var xhr = new XMLHttpRequest();
 		var url = {{ URL }};
 		xhr.open("POST", url, true);
@@ -26,6 +28,7 @@
 			data: document.getElementById("data").value
 		});
 		xhr.send(data);
+	}
 	</script>
 </body>
 </html>
