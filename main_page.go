@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -65,7 +65,21 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 	} else if r.Method == http.MethodGet {
-
+		log.Println("getting index.html")
+		index, _ := Asset("static/index.html")
+		t, err := template.New("index").Parse(string(index))
+		if err != nil {
+			log.Println(err)
+			http.Error(w, "internal server error.", http.StatusInternalServerError)
+			return
+		}
+		tmplData := struct {
+			Url string
+		}{
+			address(),
+		}
+		if err := t.Execute(w, tmplData); err != nil {
+			log.Println(err)
+		}
 	}
-	fmt.Fprintln(w, "ok.")
 }
