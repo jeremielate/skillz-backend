@@ -65,7 +65,6 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 	} else if r.Method == http.MethodGet {
-		log.Println("getting index.html")
 		index, _ := Asset("static/index.html")
 		t, err := template.New("index").Parse(string(index))
 		if err != nil {
