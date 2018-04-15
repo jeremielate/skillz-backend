@@ -24,8 +24,8 @@
 		var data = JSON.stringify({
 			url: document.getElementById("url").value,
 			method: document.getElementById("method").value,
-			headers: document.getElementById("headers").value,
-			data: document.getElementById("data").value
+			headers: JSON.parse(document.getElementById("headers").value),
+			data: JSON.parse(document.getElementById("data").value)
 		});
 		xhr.send(data);
 	}
